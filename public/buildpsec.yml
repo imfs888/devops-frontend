@@ -1,0 +1,45 @@
+version: 0.2
+
+env:
+  variables:
+    IMAGE_REPO_NAME: "851725173826.dkr.ecr.us-east-1.amazonaws.com/frontend"  
+    IMAGE_TAG: "latest" 
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20 
+    commands:
+      - echo Installing dependencies...
+      - npm install
+
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - REPOSITORY_URI=$(aws ecr describe-repositories --repository-names $IMAGE_REPO_NAME --query "repositories[0].repositoryUri" --output text)
+      - IMAGE_URI=${REPOSITORY_URI}:${IMAGE_TAG}
+      - echo Build starting at `date`
+
+  build:
+    commands:
+      - echo Building the React project with Vite...
+      - npm run build
+      - echo Building the Docker image...
+      - docker build -t $IMAGE_URI .
+
+  post_build:
+    commands:
+      - echo Pushing the Docker image to ECR...
+      - docker push $IMAGE_URI
+      - echo Build completed at `date`
+
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
+
+cache:
+  paths:
+    - 'node_modules/**/*'
