@@ -14,4 +14,4 @@ aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --usern
 docker pull ${REPOSITORY_URI}:${IMAGE_TAG}
 
 # Creating and starting a docker container using a new image
-docker run -d -p 4000:4000 --name ${CONTAINER_NAME} docker push ${REPOSITORY_URI}:${IMAGE_TAG}
+docker run -d -p 4000:4000 --name ${CONTAINER_NAME} ${REPOSITORY_URI}:${IMAGE_TAG}
