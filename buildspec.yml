@@ -18,6 +18,7 @@ phases:
       - echo Pushing the Docker image...
       - docker push ${REPOSITORY_URI}:${IMAGE_TAG}
       - echo Build completed at `date`
+
 artifacts:
   files:
     - '**/*'
