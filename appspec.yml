@@ -1,0 +1,8 @@
+version: 0.0
+os: linux
+hooks:
+  BeforeInstall:
+    - location: scripts/stop-containers.sh
+  ApplicationStart:
+    - location: scripts/deploy-container.sh
+      timeout: 3600
