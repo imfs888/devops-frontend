@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker container rm -f "$(docker container ls -aq)"
+docker container rm -f devops-frontend
