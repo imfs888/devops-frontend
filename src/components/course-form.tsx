@@ -53,7 +53,7 @@ export const CourseForm = () => {
 
     return (
         <Container maxW="lg" mt={8}>
-            <Heading textAlign='center'>Course Form</Heading>
+            <Heading textAlign='center'>Course Enrollment Form</Heading>
             <Box p={6} boxShadow="md" borderRadius="md">
                 <form onSubmit={handleSubmit}>
                     <FormControl id="title" mb={4}>
